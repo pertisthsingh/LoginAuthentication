@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Document(collection = "users")
-@Component
 public class User {
 
     @Id
