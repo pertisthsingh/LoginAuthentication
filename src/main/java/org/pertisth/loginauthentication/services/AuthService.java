@@ -1,9 +1,7 @@
 package org.pertisth.loginauthentication.services;
 
-import org.bson.types.ObjectId;
 import org.pertisth.loginauthentication.models.User;
 import org.pertisth.loginauthentication.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +16,11 @@ public class AuthService {
     }
 
     public User saveUser(User user) {
-        return userRepository.save(user);
+        User savedUser = this.getUserByUserName(user.getUsername());
+        if(savedUser == null){
+            savedUser = userRepository.save(user);
+        }
+        return savedUser;
     }
 
     public List<User> getAllUsers() {
