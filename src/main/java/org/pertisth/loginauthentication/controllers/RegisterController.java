@@ -1,6 +1,5 @@
 package org.pertisth.loginauthentication.controllers;
 
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.pertisth.loginauthentication.models.ErrorMessage;
 import org.pertisth.loginauthentication.models.User;
