@@ -1,14 +1,13 @@
 package org.pertisth.loginauthentication.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.pertisth.loginauthentication.models.ErrorMessage;
 import org.pertisth.loginauthentication.models.User;
 import org.pertisth.loginauthentication.services.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -20,7 +19,7 @@ public class LoginController {
         this.authService = authService;
     }
 
-    @PostMapping
+    @PostMapping("/authenticate")
     public ResponseEntity<?> login(@RequestBody User user) {
         try{
             if(user.getUsername() == null || user.getUsername().isEmpty()){
@@ -38,5 +37,10 @@ public class LoginController {
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/getcsrf")
+    public ResponseEntity<CsrfToken> getCsrf(HttpServletRequest request) {
+        return ResponseEntity.ok((CsrfToken) request.getAttribute("_csrf"));
     }
 }
